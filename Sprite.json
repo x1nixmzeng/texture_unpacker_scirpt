@@ -1,7 +1,7 @@
-{"frames": [
+{"frames": {
 
+"image_1.png":
 {
-	"filename": "image_1.png",
 	"frame": {"x":227,"y":1,"w":500,"h":112},
 	"rotated": true,
 	"trimmed": false,
@@ -9,8 +9,8 @@
 	"sourceSize": {"w":500,"h":112},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"image_2.png":
 {
-	"filename": "image_2.png",
 	"frame": {"x":341,"y":1,"w":312,"h":112},
 	"rotated": true,
 	"trimmed": false,
@@ -18,8 +18,8 @@
 	"sourceSize": {"w":312,"h":112},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"image_3.png":
 {
-	"filename": "image_3.png",
 	"frame": {"x":1,"y":1,"w":224,"h":419},
 	"rotated": false,
 	"trimmed": false,
@@ -27,15 +27,15 @@
 	"sourceSize": {"w":224,"h":419},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"image_4.png":
 {
-	"filename": "image_4.png",
 	"frame": {"x":341,"y":315,"w":153,"h":188},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":153,"h":188},
 	"sourceSize": {"w":153,"h":188},
 	"pivot": {"x":0.5,"y":0.5}
-}],
+}},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",

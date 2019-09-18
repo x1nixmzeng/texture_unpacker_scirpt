@@ -39,36 +39,36 @@ def frames_from_data(filename, ext):
                 frame['offset'] = frame['spriteOffset']
 
             rectlist = to_list(frame['frame'])
-            width = int(float(rectlist[3] if frame['rotated'] else rectlist[2]))
-            height = int(float(rectlist[2] if frame['rotated'] else rectlist[3]))
+            width = int(rectlist[3] if frame['rotated'] else rectlist[2])
+            height = int(rectlist[2] if frame['rotated'] else rectlist[3])
             frame['box'] = (
-                int(float(rectlist[0])),
-                int(float(rectlist[1])),
-                int(float(rectlist[0])) + width,
-                int(float(rectlist[1])) + height
+                int(rectlist[0]),
+                int(rectlist[1]),
+                int(rectlist[0]) + width,
+                int(rectlist[1]) + height
             )
             real_rectlist = to_list(frame['sourceSize'])
-            real_width = int(float(real_rectlist[1] if frame['rotated'] else real_rectlist[0]))
-            real_height = int(float(real_rectlist[0] if frame['rotated'] else real_rectlist[1]))
+            real_width = int(real_rectlist[1] if frame['rotated'] else real_rectlist[0])
+            real_height = int(real_rectlist[0] if frame['rotated'] else real_rectlist[1])
             real_sizelist = [real_width, real_height]
             frame['real_sizelist'] = real_sizelist
             offsetlist = to_list(frame['offset'])
-            offset_x = int(float(offsetlist[1] if frame['rotated'] else offsetlist[0]))
-            offset_y = int(float(offsetlist[0] if frame['rotated'] else offsetlist[1]))
+            offset_x = int(offsetlist[1] if frame['rotated'] else offsetlist[0])
+            offset_y = int(offsetlist[0] if frame['rotated'] else offsetlist[1])
 
             if frame['rotated']:
                 frame['result_box'] = (
-                    int(float((real_sizelist[0] - width) / 2 + offset_x)),
-                    int(float((real_sizelist[1] - height) / 2 + offset_y)),
-                    int(float((real_sizelist[0] + width) / 2 + offset_x)),
-                    int(float((real_sizelist[1] + height) / 2 + offset_y))
+                    int((real_sizelist[0] - width) / 2 + offset_x),
+                    int((real_sizelist[1] - height) / 2 + offset_y),
+                    int((real_sizelist[0] + width) / 2 + offset_x),
+                    int((real_sizelist[1] + height) / 2 + offset_y)
                 )
             else:
                 frame['result_box'] = (
-                    int(float((real_sizelist[0] - width) / 2 + offset_x)),
-                    int(float((real_sizelist[1] - height) / 2 - offset_y)),
-                    int(float((real_sizelist[0] + width) / 2 + offset_x)),
-                    int(float((real_sizelist[1] + height) / 2 - offset_y))
+                    int((real_sizelist[0] - width) / 2 + offset_x),
+                    int((real_sizelist[1] - height) / 2 - offset_y),
+                    int((real_sizelist[0] + width) / 2 + offset_x),
+                    int((real_sizelist[1] + height) / 2 - offset_y)
                 )
         return frames
 
@@ -76,13 +76,16 @@ def frames_from_data(filename, ext):
         json_data = open(data_filename)
         data = json.load(json_data)
         frames = {}
-        for f in data['frames']:
-            x = int(float(f["frame"]["x"]))
-            y = int(float(f["frame"]["y"]))
-            w = int(float(f["frame"]["h"] if f['rotated'] else f["frame"]["w"]))
-            h = int(float(f["frame"]["w"] if f['rotated'] else f["frame"]["h"]))
-            real_w = int(float(f["sourceSize"]["h"] if f['rotated'] else f["sourceSize"]["w"]))
-            real_h = int(float(f["sourceSize"]["w"] if f['rotated'] else f["sourceSize"]["h"]))
+        jsonFrames = data['frames']
+        for f in jsonFrames:
+            x = int(jsonFrames[f]["frame"]["x"])
+            y = int(jsonFrames[f]["frame"]["y"])
+            w = int(jsonFrames[f]["frame"]["h"] if jsonFrames[f]['rotated'] else jsonFrames[f]["frame"]["w"])
+            h = int(jsonFrames[f]["frame"]["w"] if jsonFrames[f]['rotated'] else jsonFrames[f]["frame"]["h"])
+
+            real_w = int(jsonFrames[f]["sourceSize"]["h"] if jsonFrames[f]['rotated'] else jsonFrames[f]["sourceSize"]["w"])
+            real_h = int(jsonFrames[f]["sourceSize"]["w"] if jsonFrames[f]['rotated'] else jsonFrames[f]["sourceSize"]["h"])
+
             d = {
                 'box': (
                     x,
@@ -100,9 +103,9 @@ def frames_from_data(filename, ext):
                     int((real_w + w) / 2),
                     int((real_h + h) / 2)
                 ),
-                'rotated': f['rotated']
+                'rotated': jsonFrames[f]['rotated']
             }
-            frames[f["filename"]] = d
+            frames[f] = d
         json_data.close()
         return frames.items()
     else:
